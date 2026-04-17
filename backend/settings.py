@@ -171,8 +171,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+
 
 
 
@@ -273,6 +272,16 @@ REST_FRAMEWORK = {
 }
 
 
+
+cloudinary.config(
+    cloud_name=env("CLOUDINARY_CLOUD_NAME"),
+    api_key=env("CLOUDINARY_API_KEY"),
+    api_secret=env("CLOUDINARY_API_SECRET"),
+    secure=True,
+    sign_url=True
+)
+ 
+# Storage configuration - uses Cloudinary for media files
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -283,16 +292,8 @@ STORAGES = {
 }
 
 
-cloudinary.config(
-    cloud_name=env("CLOUDINARY_CLOUD_NAME"),
-    api_key=env("CLOUDINARY_API_KEY"),
-    api_secret=env("CLOUDINARY_API_SECRET"),
-    secure=True
-)
-#DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-
-
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 
 
@@ -314,7 +315,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 CORS_ALLOWED_ORIGINS = [
     "https://advance-multivendor-webapp.netlify.app",
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "https://res.cloudinary.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
