@@ -42,7 +42,7 @@ urlpatterns=[
 
     #payment 
     path("stripe-checkout/<order_oid>/",store_views.StripeCheckoutAPIView.as_view()),
-    path("payment-success/<order_oid>",store_views.PaymentSuccessView.as_view()),
+    path("payment-success/<order_oid>/",store_views.PaymentSuccessView.as_view()),
 
     #Customer EndPoints
     path("customer/orders/<user_id>/",customer_views.OrdersAPIView.as_view()),
